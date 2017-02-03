@@ -39,6 +39,5 @@ source $BP_DIR/lib/environment.sh
 source $BP_DIR/lib/binaries.sh
 source $BP_DIR/lib/cache.sh
 source $BP_DIR/lib/dependencies.sh
-summarize_build | output "$LOG_FILE"
 
 warn_no_start "$LOG_FILE"
