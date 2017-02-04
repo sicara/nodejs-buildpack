@@ -45,7 +45,7 @@ warn_no_start "$LOG_FILE"
 
 cd $CACHE_DIR
 CHECKSUM_FILENAME=sha256sum_node_modules
-$VENDORS_BASE_URL=http://${user}:${password}@104.199.107.26
+VENDORS_BASE_URL=http://${user}:${password}@104.199.107.26
 
 curl $VENDORS_BASE_URL/$CHECKSUM_FILENAME > $CHECKSUM_FILENAME
 
