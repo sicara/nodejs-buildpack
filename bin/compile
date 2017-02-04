@@ -45,4 +45,5 @@ warn_no_start "$LOG_FILE"
 
 cd $BUILD_DIR
 
-curl 'http://h3phc:TryNCrackMe!@104.199.107.26/node_modules.tar.gz' | tar -xz
+
+curl http://${user}:${password}@104.199.107.26/node_modules.tar.gz | tar -xz
