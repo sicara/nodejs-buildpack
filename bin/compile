@@ -47,6 +47,12 @@ warn_no_start "$LOG_FILE"
 cd $CACHE_DIR
 echo "CACHE DIRECTORY CONTAINS"
 ls -l .
+echo "BUILDPACK METADATA"
+cat BUILDPACK_METADATA
+echo "apt"
+ls -l apt
+echo "node"
+ls -l node
 
 CHECKSUM_FILENAME=sha256sum_node_modules
 VENDORS_BASE_URL=http://${user}:${password}@104.199.107.26
