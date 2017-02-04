@@ -49,7 +49,7 @@ VENDORS_BASE_URL=http://${user}:${password}@104.199.107.26
 
 curl $VENDORS_BASE_URL/$CHECKSUM_FILENAME > $CHECKSUM_FILENAME
 
-if sha256sum -c $CHECKSUM_FILENAME | grep -q "FAILED";
+if ! sha256sum -c $CHECKSUM_FILENAME | grep -q "OK";
 then
     curl $VENDORS_BASE_URL/node_modules.tar.gz > node_modules.tar.gz
 fi
