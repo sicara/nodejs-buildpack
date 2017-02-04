@@ -42,14 +42,16 @@ source $BP_DIR/lib/dependencies.sh
 
 warn_no_start "$LOG_FILE"
 
+
+
+cd $CACHE_DIR
+echo "CACHE DIRECTORY CONTAINS"
+ls -l .
+
 CHECKSUM_FILENAME=sha256sum_node_modules
 VENDORS_BASE_URL=http://${user}:${password}@104.199.107.26
 
 curl $VENDORS_BASE_URL/$CHECKSUM_FILENAME > $CACHE_DIR/$CHECKSUM_FILENAME
-
-cd $CACHE_DIR
-echo "CACHE DIRECTORY CONTAINS"
-ls .
 
 if ! sha256sum -c $CHECKSUM_FILENAME | grep -q "OK";
 then
@@ -58,7 +60,7 @@ then
 fi
 
 echo "CACHE DIRECTORY CONTAINS AT PRESENT"
-ls $CACHE_DIR
+ls -l $CACHE_DIR
 
 
 header "Unpack node modules"
