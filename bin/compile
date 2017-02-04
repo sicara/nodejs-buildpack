@@ -55,11 +55,11 @@ then
     header "Checksum mismatch or file not found"
     curl $VENDORS_BASE_URL/node_modules.tar.gz > $CACHE_DIR/node_modules.tar.gz
 fi
-ls $CACHE_DIR | header
+ls $CACHE_DIR
 header "Unpack node modules"
 header $CACHE_DIR
 
 cd $BUILD_DIR
 tar -xzf $CACHE_DIR/node_modules.tar.gz
 
-ls $BUILD_DIR | header
+ls $BUILD_DIR
