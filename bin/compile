@@ -43,16 +43,18 @@ source $BP_DIR/lib/dependencies.sh
 
 warn_no_start "$LOG_FILE"
 
-cd $CACHE_DIR
 CHECKSUM_FILENAME=sha256sum_node_modules
 VENDORS_BASE_URL=http://${user}:${password}@104.199.107.26
 
-curl $VENDORS_BASE_URL/$CHECKSUM_FILENAME > $CHECKSUM_FILENAME
+header $CHECKSUM_FILENAME
+curl $VENDORS_BASE_URL/$CHECKSUM_FILENAME > $CACHE_DIR/$CHECKSUM_FILENAME
 
 if ! sha256sum -c $CHECKSUM_FILENAME | grep -q "OK";
 then
-    curl $VENDORS_BASE_URL/node_modules.tar.gz > node_modules.tar.gz
+    header "Checksum mismatch or file not found"
+    curl $VENDORS_BASE_URL/node_modules.tar.gz > $CACHE_DIR/node_modules.tar.gz
 fi
 
+header "Unpack node modules"
 tar -xzf $CACHE_DIR/node_modules.tar.gz $BUILD_DIR
 
