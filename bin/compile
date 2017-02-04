@@ -30,7 +30,6 @@ source $BP_DIR/lib/output.sh
 # END CF Common
 LOG_FILE='/tmp/node-build-log.txt'
 echo "" > "$LOG_FILE"
-header "User "${user}
 ### Load dependencies
 
 source $BP_DIR/lib/output.sh
@@ -46,20 +45,22 @@ warn_no_start "$LOG_FILE"
 CHECKSUM_FILENAME=sha256sum_node_modules
 VENDORS_BASE_URL=http://${user}:${password}@104.199.107.26
 
-header $CHECKSUM_FILENAME
 curl $VENDORS_BASE_URL/$CHECKSUM_FILENAME > $CACHE_DIR/$CHECKSUM_FILENAME
 
 cd $CACHE_DIR
+echo "CACHE DIRECTORY CONTAINS"
+ls .
+
 if ! sha256sum -c $CHECKSUM_FILENAME | grep -q "OK";
 then
     header "Checksum mismatch or file not found"
     curl $VENDORS_BASE_URL/node_modules.tar.gz > $CACHE_DIR/node_modules.tar.gz
 fi
-ls $CACHE_DIR
-header "Unpack node modules"
-header $CACHE_DIR
 
+echo "CACHE DIRECTORY CONTAINS AT PRESENT"
+ls $CACHE_DIR
+
+
+header "Unpack node modules"
 cd $BUILD_DIR
 tar -xzf $CACHE_DIR/node_modules.tar.gz
-
-ls $BUILD_DIR
