@@ -58,5 +58,6 @@ fi
 header "Unpack node modules"
 header $CACHE_DIR
 ls $CACHE_DIR | header
-tar -xzf $CACHE_DIR/node_modules.tar.gz $BUILD_DIR
 
+cd $BUILD_DIR
+tar -xzf $CACHE_DIR/node_modules.tar.gz
