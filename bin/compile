@@ -37,28 +37,30 @@ source $BP_DIR/lib/cache.sh
 source $BP_DIR/lib/dependencies.sh
 
 warn_no_start "$LOG_FILE"
+VENDORS_BASE_URL=$SDK_URL
+CHECKSUM_FILENAME_PREFIX="sha256sum_"
 
+download_from_sdk() {
+  TARGET=$1
+  TAR_FILENAME="${1}.tar.gz"
+  CHECKSUM_FILENAME="${CHECKSUM_FILENAME_PREFIX}$1"
 
+  cd $CACHE_DIR
 
-cd $CACHE_DIR
-echo "CACHE DIRECTORY CONTAINS"
-ls -l .
+  header "Downloading checksum for $TARGET"
+  curl $VENDORS_BASE_URL/$CHECKSUM_FILENAME > $CACHE_DIR/$CHECKSUM_FILENAME
 
-CHECKSUM_FILENAME=sha256sum_node_modules
-VENDORS_BASE_URL=http://${user}:${password}@104.199.107.26
+  if ! sha256sum -c $CHECKSUM_FILENAME | grep -q "OK";
+  then
+      header "Checksum mismatch or file not found"
+      header "Downloading $TAR_FILENAME"
+      curl $VENDORS_BASE_URL/$TAR_FILENAME > $CACHE_DIR/$TAR_FILENAME
+  fi
 
-curl $VENDORS_BASE_URL/$CHECKSUM_FILENAME > $CACHE_DIR/$CHECKSUM_FILENAME
+  header "Unpack $TAR_FILENAME"
+  cd $BUILD_DIR
+  tar -xzf $CACHE_DIR/$TAR_FILENAME
+}
 
-if ! sha256sum -c $CHECKSUM_FILENAME | grep -q "OK";
-then
-    header "Checksum mismatch or file not found"
-    curl $VENDORS_BASE_URL/node_modules.tar.gz > $CACHE_DIR/node_modules.tar.gz
-fi
-
-echo "CACHE DIRECTORY CONTAINS AT PRESENT"
-ls -l $CACHE_DIR
-
-
-header "Unpack node modules"
-cd $BUILD_DIR
-tar -xzf $CACHE_DIR/node_modules.tar.gz
+download_from_sdk "node_modules"
+download_from_sdk "node"
