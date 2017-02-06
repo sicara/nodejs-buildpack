@@ -19,10 +19,6 @@ BP_DIR=$(cd $(dirname ${0:-}); cd ..; pwd)
 $BP_DIR/compile-extensions/bin/check_stack_support
 $BP_DIR/compile-extensions/bin/check_buildpack_version $BP_DIR $CACHE_DIR
 
-mkdir -p "$BUILD_DIR/.heroku/node/"
-cd $BUILD_DIR
-export PATH="$BUILD_DIR/.heroku/node/bin:$BUILD_DIR/.heroku/yarn/bin":$PATH
-
 # CF Common
 export BUILDPACK_PATH=$BP_DIR
 source $BP_DIR/compile-extensions/lib/common
